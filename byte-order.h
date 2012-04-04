@@ -1,3 +1,6 @@
+#ifndef BYTE_ORDER_H
+#define BYTE_ORDER_H
+
 #include <stdint.h>
 
 #if defined (__GLIBC__)
@@ -95,7 +98,7 @@ inline uint32_t letohl(uint32_t v) {
   #ifdef BO_LITTLE_ENDIAN
     return v;
   #else
-    #ifdef __GNUC__
+    #ifdef __GNUC__)
       return __builtin_bswap32(v);
     #else
       uint8_t * data = (uint8_t*) &v;
@@ -111,3 +114,4 @@ inline uint32_t letohl(uint32_t v) {
   inline uint32_t htole(uint32_t v) {return htolel(v);}
   inline uint32_t letoh(uint32_t v) {return letohl(v);}
 #endif
+#endif /* BYTE_ORDER_H */
