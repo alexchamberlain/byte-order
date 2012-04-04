@@ -36,18 +36,22 @@ inline uint32_t htobel(uint32_t v) {
   #ifdef BO_BIG_ENDIAN
     return v;
   #else
-    uint32_t ret;
-    uint8_t * data = (uint8_t*) &ret;
+    #ifdef __GNUC__
+      return __builtin_bswap32(v);
+    #else
+      uint32_t ret;
+      uint8_t * data = (uint8_t*) &ret;
 
-    data[0] = v/(2 << 23);
-    v %= (2 << 24);
-    data[1] = v/(2 << 15);
-    v %= (2 << 16);
-    data[2] = v/(2 <<  7);
-    v %= (2 <<  8);
-    data[3] = v;
+      data[0] = v/(2 << 23);
+      v %= (2 << 24);
+      data[1] = v/(2 << 15);
+      v %= (2 << 16);
+      data[2] = v/(2 <<  7);
+      v %= (2 <<  8);
+      data[3] = v;
 
-    return ret;
+      return ret;
+    #endif
   #endif
 }
 
@@ -55,8 +59,12 @@ inline uint32_t betohl(uint32_t v) {
   #ifdef BO_BIG_ENDIAN
     return v;
   #else
-    uint8_t * data = (uint8_t*) &v;
-    return (data[3]<<0) | (data[2]<<8) | (data[1]<<16) | (data[0]<<24);
+    #ifdef __GNUC__
+      return __builtin_bswap32(v);
+    #else
+      uint8_t * data = (uint8_t*) &v;
+      return (data[3]<<0) | (data[2]<<8) | (data[1]<<16) | (data[0]<<24);
+    #endif
   #endif
 }
 
@@ -64,18 +72,22 @@ inline uint32_t htolel(uint32_t v) {
   #ifdef BO_LITTLE_ENDIAN
     return v;
   #else
-    uint32_t ret;
-    uint8_t * data = (uint8_t*) &ret;
+    #ifdef __GNUC__
+      return __builtin_bswap32(v);
+    #else
+      uint32_t ret;
+      uint8_t * data = (uint8_t*) &ret;
 
-    data[3] = v/(2 << 23);
-    v %= (2 << 24);
-    data[2] = v/(2 << 15);
-    v %= (2 << 16);
-    data[1] = v/(2 <<  7);
-    v %= (2 <<  8);
-    data[0] = v;
+      data[3] = v/(2 << 23);
+      v %= (2 << 24);
+      data[2] = v/(2 << 15);
+      v %= (2 << 16);
+      data[1] = v/(2 <<  7);
+      v %= (2 <<  8);
+      data[0] = v;
 
-    return ret;
+      return ret;
+    #endif
   #endif
 }
 
@@ -83,8 +95,12 @@ inline uint32_t letohl(uint32_t v) {
   #ifdef BO_LITTLE_ENDIAN
     return v;
   #else
-    uint8_t * data = (uint8_t*) &v;
-    return (data[3]<<0) | (data[2]<<8) | (data[1]<<16) | (data[0]<<24);
+    #ifdef __GNUC__
+      return __builtin_bswap32(v);
+    #else
+      uint8_t * data = (uint8_t*) &v;
+      return (data[3]<<0) | (data[2]<<8) | (data[1]<<16) | (data[0]<<24);
+    #endif
   #endif
 }
 
