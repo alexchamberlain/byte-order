@@ -47,4 +47,10 @@ uint32_t letohl(uint32_t v) {
   return (data[3]<<0) | (data[2]<<8) | (data[1]<<16) | (data[0]<<24);
 }
 
-
+#ifdef __cplusplus
+  /* C++ Overloads */
+  inline uint32_t htobe(uint32_t v) {return htobel(v);}
+  inline uint32_t betoh(uint32_t v) {return betohl(v);}
+  inline uint32_t htole(uint32_t v) {return htolel(v);}
+  inline uint32_t letoh(uint32_t v) {return letohl(v);}
+#endif
